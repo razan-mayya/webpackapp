@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { Container } from "react-bootstrap";
+import { NavBar } from "./Components/NavBar";
+import { Header } from "./Components/Header";
+import { Cards } from "./Components/Cards";
+import { useState } from "react";
+import { data } from "./data.js";
 function App() {
+  const [Data, setData] = useState(data);
+  const filtersearch = (word) => {
+    if (word != '') {
+      setData(data.filter(i => { return i.title === word }))
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <NavBar filtersearch={filtersearch} />
+      <Container>
+        <Header datacard={Data} setdata={setData} arrdata={data} />
+        <Cards datacard={Data} />
+      </Container>
     </div>
   );
 }
